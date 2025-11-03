@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">3tie-kartun</string>
+    <string name="tombol">next</string>
+    <string name="silhkan_masukkan_nomor_handphone_anda">Silhkan masukkan nomor handphone anda</string>
+    <string name="verif">Verifikasi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

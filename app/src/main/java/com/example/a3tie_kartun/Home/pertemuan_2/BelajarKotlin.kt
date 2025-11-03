@@ -1,4 +1,4 @@
-package com.example.a3tie_kartun.pertemuan_2
+package com.example.a3tie_kartun.Home.pertemuan_2
 
 fun main(){
         println("Hai rekan-rekan...")
