@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme._3tiekartun">
         <activity
+            android:name=".Home.pertemuan_13.ThirteenthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Note.NoteFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Home.pertemuan_10.TenthActivity"
+            android:exported="false" />
+        <activity
             android:name=".Message.tutorial.TutorialMessageActivity"
             android:exported="false" />
         <activity

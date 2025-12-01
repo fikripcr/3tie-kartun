@@ -1,11 +1,14 @@
 package com.example.a3tie_kartun.Home.pertemuan_9
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.a3tie_kartun.Home.pertemuan_5.WebViewActivity
 import com.example.a3tie_kartun.R
 import com.example.a3tie_kartun.databinding.ActivityNinthBinding
 import com.google.android.material.chip.Chip
@@ -38,4 +41,15 @@ class NinthActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

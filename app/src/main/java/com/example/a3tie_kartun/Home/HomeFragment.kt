@@ -7,17 +7,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a3tie_kartun.AuthActivity
+import com.example.a3tie_kartun.Data.Api.CatFactApiClient
+import com.example.a3tie_kartun.Data.Api.PhotoApiClient
+import com.example.a3tie_kartun.Home.pertemuan_10.TenthActivity
+import com.example.a3tie_kartun.Home.pertemuan_13.ThirteenthActivity
 import com.example.a3tie_kartun.Home.pertemuan_2.SecondActivity
 import com.example.a3tie_kartun.Home.pertemuan_3.ThirdActivity
 import com.example.a3tie_kartun.Home.pertemuan_4.FourthActivity
 import com.example.a3tie_kartun.Home.pertemuan_5.FifthActivity
 import com.example.a3tie_kartun.Home.pertemuan_6.SixthActivity
 import com.example.a3tie_kartun.Home.pertemuan_9.NinthActivity
+import com.example.a3tie_kartun.Home.photo.PhotoAdapter
 import com.example.a3tie_kartun.R
 import com.example.a3tie_kartun.databinding.FragmentHomeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -36,9 +46,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Halaman Home"
+            title = "Home"
         }
         val sharedPref = requireContext().getSharedPreferences("user_pref", MODE_PRIVATE)
         val sp_username = sharedPref.getString("username","")
@@ -77,6 +88,15 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), NinthActivity::class.java)
             startActivity(intent)
         }
+        binding.btnToTenth.setOnClickListener {
+            val intent = Intent(requireContext(), TenthActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnToThirteenth.setOnClickListener {
+            val intent = Intent(requireContext(), ThirteenthActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.btnLogout.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
@@ -95,6 +115,43 @@ class HomeFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+        }
+        binding.btnRefresh.setOnClickListener {
+            loadCatFact()
+        }
+        loadPhoto()
+    }
+
+
+    private fun loadCatFact() {
+        lifecycleScope.launch {
+            try {
+                val response = CatFactApiClient.apiService.getCatFact()
+                binding.tvCatFact.text = "\"${response.fact}\""
+            } catch (e: Exception) {
+                binding.tvCatFact.text = "Gagal mengambil fakta kucing."
+            }
+        }
+    }
+    private fun loadPhoto() {
+        lifecycleScope.launch {
+            try {
+                val photos = PhotoApiClient.apiService.getPhotos()
+                val adapter = PhotoAdapter(photos)
+                binding.rvGallery.adapter = adapter
+
+//                /** List Tampil Vertical*/
+                binding.rvGallery.layoutManager = LinearLayoutManager(requireContext())
+
+                /** List Tampil Horizontal */
+//                binding.rvGallery.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+                /** List Tampil Grid */
+//                binding.rvGallery.layoutManager = GridLayoutManager(requireContext(), 3)
+
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
