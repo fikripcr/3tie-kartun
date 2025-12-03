@@ -57,10 +57,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.google.zxing:core:3.5.2")
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
 
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     ksp ("androidx.room:room-compiler:$room_version")
+
+    // CameraX
+    implementation("androidx.camera:camera-camera2:1.3.3")
+    implementation("androidx.camera:camera-lifecycle:1.3.3")
+    implementation("androidx.camera:camera-view:1.3.3")
+// ML Kit untuk QR code (ringan, offline)
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
 }
